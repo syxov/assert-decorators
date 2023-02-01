@@ -1,12 +1,10 @@
-import { validate } from './validate';
-import { number } from './decorators';
-import { registerHandler } from './config';
+import { validate } from '../validate';
+import { number } from './index';
+import { registerHandler } from '../config';
 
 class TestObj {
   @validate()
-  testFn(@number x: any): void {
-
-  }
+  testFn(@number x: any): void {}
 }
 
 let obj!: TestObj;
