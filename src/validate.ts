@@ -1,19 +1,19 @@
 import "reflect-metadata";
 import { numberValidation } from './decorators/number';
 
-const validators: Array<(target: any, propertyName: string, descriptor: TypedPropertyDescriptor<Function>, methodName?: string) => void> = [
+const validators: Array<(args: any[], target: any, propertyName: string, descriptor: TypedPropertyDescriptor<any>, methodName?: string) => void> = [
   numberValidation
 ];
 
-export function validate(methodName?: string) {
-  return function (target: any, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) {
+export function validate(methodName?: string): (target: any, propertyName: string, descriptor: TypedPropertyDescriptor<any>) => void {
+  return function (target: any, propertyName: string, descriptor: TypedPropertyDescriptor<any>) {
     let method = descriptor.value!;
 
-    descriptor.value = function () {
+    descriptor.value = function (...args: unknown[]) {
       validators.forEach(validator => {
-        validator(target, propertyName, descriptor, methodName);
+        validator(args, target, propertyName, descriptor, methodName);
       });
-      return method.apply(this, arguments);
+      return method.apply(this, args);
     };
   }
 

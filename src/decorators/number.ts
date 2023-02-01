@@ -10,12 +10,12 @@ export function number(target: Object, propertyKey: string | symbol, parameterIn
   Reflect.defineMetadata(numberMetadataKey, existingRequiredParameters, target, propertyKey);
 }
 
-export function numberValidation(target: any, propertyName: string, descriptor: TypedPropertyDescriptor<Function>, methodName?: string): void {
+export function numberValidation(args: any[], target: any, propertyName: string, descriptor: TypedPropertyDescriptor<Function>, methodName?: string): void {
   let numberParameters: number[] | undefined = Reflect.getOwnMetadata(numberMetadataKey, target, propertyName);
   if (numberParameters && numberParameters.length) {
     for (let parameterIndex of numberParameters) {
-      if (!isNumber(arguments[parameterIndex])) {
-        notify(new Error("Argument is not a number. Arg index - " + parameterIndex), methodName);
+      if (!isNumber(args[parameterIndex])) {
+        notify(new Error("Argument is not a number - " + args[parameterIndex] + ". Arg index - " + parameterIndex), methodName);
       }
     }
   }

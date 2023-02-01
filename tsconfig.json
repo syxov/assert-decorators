@@ -10,7 +10,9 @@
       "es5",
       "scripthost",
       "es2015.symbol"
-    ]
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]
